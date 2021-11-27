@@ -1,1 +1,1 @@
-web: pipvenv run python app/manage.py runserver 
+web: pipvenv run python app/manage.py runserver
