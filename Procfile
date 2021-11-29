@@ -1,1 +1,1 @@
-web: gunicorn djangogramm.wsgi --log-file=-
+web: gunicorn djangogramm.djangogramm.wsgi --log-file=-
