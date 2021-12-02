@@ -1,19 +1,18 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
 
 
-class User(models.Model):
-    id = models.AutoField(primary_key=True)
+class User(AbstractBaseUser):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    email = models.EmailField()
-    password = models.CharField(max_length=50)
+    #email = models.EmailField()
+    #password = models.CharField(max_length=50)
+    #is_email_confirmed = models.BooleanField()
     bio = models.TextField()
     avatar = models.ImageField()
-    is_email_confirmed = models.BooleanField()
 
 
 class Publication(models.Model):
-    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField()
     description = models.TextField()
@@ -21,7 +20,6 @@ class Publication(models.Model):
 
 
 class Comment(models.Model):
-    id = models.AutoField()
     publication = models.ForeignKey(Publication, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
