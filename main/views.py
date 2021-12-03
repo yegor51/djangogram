@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import User, User
+from .models import User, Publication
 
 
 def profile(request, id):
@@ -10,4 +10,6 @@ def profile(request, id):
 
 
 def publication(request, id):
-    return HttpResponse('test2')
+    return render(request, 'main/view_publication.html', {
+        'publication': Publication.objects.get(id=id),
+    })

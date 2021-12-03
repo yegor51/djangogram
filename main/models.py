@@ -1,21 +1,31 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
+from .managers import UserManager
 
 
-class User(AbstractBaseUser):
+class User(AbstractUser):
+    username = None
+
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    #email = models.EmailField()
-    #password = models.CharField(max_length=50)
-    #is_email_confirmed = models.BooleanField()
-    bio = models.TextField()
-    avatar = models.ImageField()
+    email = models.EmailField('email address', unique=True)
+    bio = models.TextField(null=True)
+    avatar = models.ImageField(upload_to='static/img/', null=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = UserManager()
+
+    def __str__(self):
+        return self.email
 
 
 class Publication(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = models.ImageField()
-    description = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    publication_name = models.CharField(max_length=50, default='None')
+    image = models.ImageField(upload_to='static/img/')
+    description = models.TextField(null=True)
     publication_date = models.DateTimeField()
 
 

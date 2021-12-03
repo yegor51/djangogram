@@ -1,0 +1,7 @@
+body{
+    background-color: var(--bs-gray-400)!important;
+}
+
+.sidebar{
+    height: 100vh;
+}
