@@ -1,4 +1,4 @@
-{% extends 'main/layout.html' %}
+{% extends 'layout.html' %}
 
 {% block title %}
 {{ user.first_name }}
@@ -9,8 +9,8 @@
 {% block content %}
 <div class="p-3 bg-white">
     <div class="flex-row d-flex">
-        <img class="rounded-circle p-2" src="{{ user.avatar.url }}" alt="img" width="150px" height="150px">
-        <div class="d-flex flex-column p-2 m-0">
+        <img class="rounded-circle" src="{{ user.avatar.url }}" alt="img" width="150px" height="150px">
+        <div class="d-flex flex-column m-0 ms-3">
             <h1 class=" display-4">{{ user.first_name }} {{ user.last_name }}</h1>
             <p>
                 publications: {{ publications.count }}
@@ -18,10 +18,10 @@
             </p>
         </div>
     </div>
-    <hr class="my-1 mx-2">
+    <hr class="my-1">
     <div>
         {% if user.bio %}
-        <h3>bio:</h3>
+        <h3 class="display-1 fs-3">bio:</h3>
         <p class="px-3 m-0" style="white-space: pre-line">{{ user.bio }}
         </p>
         {% else %}
@@ -37,19 +37,19 @@
 <!--publications-->
 <div class="w-75 mx-auto">
     {% if publications %}
-    <h1 class="display-4 m-3 text-secondary">
+    <h1 class="display-4 fs-3 m-3 text-secondary">
         publications:
     </h1>
     {% endif %}
 
     {% for publication in publications %}
     <a class="link-dark text-decoration-none" href="{% url 'view_publication' publication.id %}">
-    <div class="h-3 list-group mb-3 rounded-0">
-        <div class="list-group-item bg-white">
+    <div class="h-3 mb-3 bg-white">
+        <div class="mx-3 mt-3">
             <h2 class="m-0 display-6">{{ publication.publication_name }}</h2>
             <p class=" my-0">{{publication.publication_date}}</p>
         </div>
-        <img class="list-group-item p-0" src="{{ publication.image.url }}" alt="img" width="100%">
+        <img class="p-0" src="{{ publication.image.url }}" alt="img" width="100%">
     </div>
     </a>
     {% endfor %}

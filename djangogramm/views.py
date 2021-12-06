@@ -3,4 +3,4 @@ from django.shortcuts import redirect
 
 
 def home(request):
-    return redirect('view/all-users/')
+    return redirect('users/all/')

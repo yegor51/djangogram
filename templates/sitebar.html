@@ -1,0 +1,28 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-white fixed-top" style="width: 280px; height: 100vh;">
+
+    <a href="{% url 'home' %}" class="mx-auto d-flex align-items-center link-dark text-decoration-none">
+      <span class="fs-2 display-4">Djangogramm</span>
+    </a>
+
+    <hr>
+
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item mx-auto fs-4">
+            <a href="{% url 'view_all_users' %}" class="nav-link p-0" aria-current="page">
+            My profile
+            </a>
+        </li>
+        <li class="nav-item mx-auto fs-4">
+            <a href="{% url 'view_all_users' %}" class="nav-link p-0" aria-current="page">
+            All users
+            </a>
+        </li>
+    </ul>
+
+    <hr>
+
+    <div class="dropdown d-flex justify-content-center">
+        <a  class="nav-link p-0"  href="{% url 'logout' %}">sign out</a>
+    </div>
+
+</div>

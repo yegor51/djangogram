@@ -19,4 +19,14 @@ class User(AbstractUser):
     objects = UserManager()
 
     def __str__(self):
-        return self.email
+        return f'{self.first_name} {self.last_name} {self.email}'
+
+    @staticmethod
+    def create_user(email, password, first_name, last_name):
+        new_user = User(email=email,
+                        first_name=first_name,
+                        last_name=last_name,
+                        )
+        new_user.set_password(password)
+        new_user.save()
+        return new_user

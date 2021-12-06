@@ -1,0 +1,29 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+
+</head>
+<body style="background-color: var(--bs-gray-300)!important;">
+<div class="flex-row d-flex">
+
+    {% include 'sitebar.html' %}
+
+    <div class="w-50 mx-auto">
+        <div class="d-flex flex-column m-5 bg-light">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

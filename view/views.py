@@ -5,6 +5,7 @@ from publications.models import Publication, Comment, Mark
 from django.core.exceptions import ObjectDoesNotExist
 
 
+@login_required
 def profile(request, id):
     try:
         user_object = User.objects.get(id=id)
@@ -17,6 +18,7 @@ def profile(request, id):
         return render(request, 'main/sorry_massage.html', {'message': 'This user does not exist.'})
 
 
+@login_required
 def publication(request, id):
     try:
         publication_object = Publication.objects.get(id=id)
@@ -30,6 +32,7 @@ def publication(request, id):
         return render(request, 'main/sorry_massage.html', {'message': 'This publication does not exist.'})
 
 
+@login_required
 def all_users(request):
     return render(request, 'main/all_users.html', {
         'users': User.objects.all(),

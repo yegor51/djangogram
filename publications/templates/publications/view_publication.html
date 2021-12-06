@@ -1,4 +1,4 @@
-{% extends 'main/layout.html' %}
+{% extends 'layout.html' %}
 
 {% block title %}
 {{ publication.publication_name }}
@@ -6,18 +6,20 @@
 
 
 {% block content %}
-<div class="list-group">
-    <div class="list-group-item  bg-white">
-        <a class="d-flex flex-row link-dark text-decoration-none" href="{% url 'view_profile' publication.author.id %}">
-            <img src="{{ publication.author.avatar.url }}" class="rounded-circle p-2" alt="img" width="70px" height="70px">
-            <h3 class="display-6 align-text-bottom my-auto">{{ publication.author.first_name }} {{ publication.author.last_name }}</h3>
+<div class="bg-white">
+    <div class="bg-white">
+        <a class="d-flex link-dark text-decoration-none" href="{% url 'view_user' publication.author.id %}">
+            <div class="d-flex flex-row m-2">
+                <img src="{{ publication.author.avatar.url }}" class="rounded-circle p-2" alt="img" width="70px" height="70px">
+                <h3 class="display-6 align-text-bottom my-auto">{{ publication.author.first_name }} {{ publication.author.last_name }}</h3>
+            </div>
         </a>
     </div>
-    <img class="list-group-item p-0" src="{{ publication.image.url }}" alt="img" width="100%">
-    <div class="list-group-item  bg-white pl-2">
+    <img class="p-0" src="{{ publication.image.url }}" alt="img" width="100%">
+    <div class="p-0 my-1 mx-3">
         <div class="d-flex justify-content-between">
             <div>
-                <h2 class="m-0 display-6">{{ publication.publication_name }}</h2>
+                <h2 class="m-0">{{ publication.publication_name }}</h2>
                 <p class="m-0">{{ publication.publication_date }}</p>
             </div>
             <div class="m-1 mt-auto d-flex flex-row align-items-end">
@@ -30,12 +32,12 @@
                 <svg width="25" height="25" viewBox="0 0 16 16">
                     {% include 'icons/dislike.html' %}
                 </svg>
-                <p class="my-auto fs-5 display-1 me-3">{{ dislikes_count }}</p>
+                <p class="my-auto fs-5 display-1">{{ dislikes_count }}</p>
             </div>
         </div>
         {% if publication.description %}
         <hr class="my-1">
-        <p class="p-2 h-3" style="white-space: pre-line">{{ publication.description }}</p>
+        <p class="py-2 h-3" style="white-space: pre-line">{{ publication.description }}</p>
         {% endif %}
     </div>
 
@@ -44,17 +46,19 @@
 
 <!--comments-->
 {% if comments %}
-<div class="m-3">
-    <h3 class="display-1 fs-3">comments:</h3>
+<div class="mx-5 pb-4">
+    <h2 class="text-secondary mx-auto display-4 fs-3">
+        comments:
+    </h2>
     <div>
         {% for comment in comments %}
 <!--        comment-->
-        <div class="bg-white p-2 px-3 my-1 rounded border">
+        <div class="bg-white p-2 px-3 my-1">
 
                 <div class="d-flex justify-content-between">
 <!--                    comment author-->
-                    <a class="link-dark text-decoration-none" href="{% url 'view_profile' comment.author.id %}">
-                        <p class="m-0 fs-4 display-1">
+                    <a class="link-dark text-decoration-none" href="{% url 'view_user' comment.author.id %}">
+                        <p class="m-0 fs-4">
                         {{ comment.author.first_name }} {{ comment.author.last_name }}:
                         </p>
                     </a>
@@ -64,7 +68,7 @@
 
             <hr class="my-1">
 <!--            comment text-->
-            <p class="m-2" style="white-space: pre-line">{{ comment.text }}</p>
+            <p class="m-2" style="white-space: pre-line; line-height: 1.1">{{ comment.text }}</p>
         </div>
         {% endfor %}
     </div>
