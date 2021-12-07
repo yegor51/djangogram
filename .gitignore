@@ -3,9 +3,8 @@
 **/.coverage
 /build/
 /*.egg-info/
-**/db.sqlite3
+#**/db.sqlite3
 /venv/
 static/img/*.jpg
 static/img/*.jfif
 static/img/*.png
-**/migrations/

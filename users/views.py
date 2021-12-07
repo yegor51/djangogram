@@ -16,7 +16,9 @@ def user_view(request, id):
             'user_login': request.user,
         })
     except ObjectDoesNotExist:
-        return render(request, 'sorry_massage.html', {'message': 'This user does not exist.'})
+        return render(request, 'sorry_massage.html', {'message': 'This user does not exist.',
+                                                      'user_login': request.user,
+                                                      })
 
 
 @login_required

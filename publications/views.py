@@ -16,4 +16,6 @@ def publication_view(request, id):
             'user_login': request.user,
         })
     except ObjectDoesNotExist:
-        return render(request, 'sorry_massage.html', {'message': 'This publication does not exist.'})
+        return render(request, 'sorry_massage.html', {'message': 'This publication does not exist.',
+                                                      'user_login': request.user,
+                                                      })
