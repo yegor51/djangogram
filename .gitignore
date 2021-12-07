@@ -8,4 +8,4 @@
 static/img/*.jpg
 static/img/*.jfif
 static/img/*.png
-/default/
+**/migrations/
