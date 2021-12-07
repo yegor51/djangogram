@@ -9,9 +9,9 @@
 {% block content %}
 <div class="p-3 bg-white">
     <div class="flex-row d-flex">
-        <img class="rounded-circle" src="{{ user.avatar.url }}" alt="img" width="150px" height="150px">
-        <div class="d-flex flex-column m-0 ms-3">
-            <h1 class=" display-4">{{ user.first_name }} {{ user.last_name }}</h1>
+        <img class="rounded-circle" src="{{ user.avatar.url }}" alt="img" width="100px" height="100px">
+        <div class="d-flex flex-column m-0 ms-3 mb-3">
+            <h1 class="main-title">{{ user.first_name }} {{ user.last_name }}</h1>
             <p>
                 publications: {{ publications.count }}
                 comments: {{ comments_count }}
@@ -19,11 +19,10 @@
         </div>
     </div>
     <hr class="my-1">
-    <div>
+    <div class="">
         {% if user.bio %}
-        <h3 class="display-1 fs-3">bio:</h3>
-        <p class="px-3 m-0" style="white-space: pre-line">{{ user.bio }}
-        </p>
+<!--        <h3 class="chapter-title">bio:</h3>-->
+        <p class="m-0" style="white-space: pre-line">{{ user.bio }}</p>
         {% else %}
 
         <p class="px-3 m-0">
@@ -35,9 +34,9 @@
 </div>
 
 <!--publications-->
-<div class="w-75 mx-auto">
+<div class="w-75 mx-auto mt-2">
     {% if publications %}
-    <h1 class="display-4 fs-3 m-3 text-secondary">
+    <h1 class="chapter-title">
         publications:
     </h1>
     {% endif %}
@@ -45,8 +44,8 @@
     {% for publication in publications %}
     <a class="link-dark text-decoration-none" href="{% url 'view_publication' publication.id %}">
     <div class="h-3 mb-3 bg-white">
-        <div class="mx-3 mt-3">
-            <h2 class="m-0 display-6">{{ publication.publication_name }}</h2>
+        <div class="mx-3 mt-3 mb-1">
+            <h2 class="m-0 sub-main-title">{{ publication.publication_name }}</h2>
             <p class=" my-0">{{publication.publication_date}}</p>
         </div>
         <img class="p-0" src="{{ publication.image.url }}" alt="img" width="100%">

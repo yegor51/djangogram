@@ -11,7 +11,7 @@
         <a class="d-flex link-dark text-decoration-none" href="{% url 'view_user' publication.author.id %}">
             <div class="d-flex flex-row m-2">
                 <img src="{{ publication.author.avatar.url }}" class="rounded-circle p-2" alt="img" width="70px" height="70px">
-                <h3 class="display-6 align-text-bottom my-auto">{{ publication.author.first_name }} {{ publication.author.last_name }}</h3>
+                <h3 class="main-title align-text-bottom my-auto">{{ publication.author.first_name }} {{ publication.author.last_name }}</h3>
             </div>
         </a>
     </div>
@@ -19,7 +19,7 @@
     <div class="p-0 my-1 mx-3">
         <div class="d-flex justify-content-between">
             <div>
-                <h2 class="m-0">{{ publication.publication_name }}</h2>
+                <span class="m-0 main-title">{{ publication.publication_name }}</span>
                 <p class="m-0">{{ publication.publication_date }}</p>
             </div>
             <div class="m-1 mt-auto d-flex flex-row align-items-end">
@@ -47,9 +47,9 @@
 <!--comments-->
 {% if comments %}
 <div class="mx-5 pb-4">
-    <h2 class="text-secondary mx-auto display-4 fs-3">
+    <span class="text-secondary mx-auto my-1 chapter-title">
         comments:
-    </h2>
+    </span>
     <div>
         {% for comment in comments %}
 <!--        comment-->
@@ -58,17 +58,17 @@
                 <div class="d-flex justify-content-between">
 <!--                    comment author-->
                     <a class="link-dark text-decoration-none" href="{% url 'view_user' comment.author.id %}">
-                        <p class="m-0 fs-4">
+                        <p class="m-0">
                         {{ comment.author.first_name }} {{ comment.author.last_name }}:
                         </p>
                     </a>
 <!--                    comment date-->
-                    <p class="mt-auto mb-0 mr-auto fs-6 display-1">{{ comment.publication_date.date }}</p>
+                    <p class="mt-auto mb-0 mr-auto">{{ comment.publication_date.date }}</p>
                 </div>
 
             <hr class="my-1">
 <!--            comment text-->
-            <p class="m-2" style="white-space: pre-line; line-height: 1.1">{{ comment.text }}</p>
+            <p class="" style="white-space: pre-line;">{{ comment.text }}</p>
         </div>
         {% endfor %}
     </div>

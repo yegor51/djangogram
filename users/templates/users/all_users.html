@@ -6,17 +6,20 @@ Users
 
 
 {% block content %}
-<h1 class="display-5 fs-2 p-2 my-0 mx-auto">All users list:</h1>
+<h1 class="main-title p-2 my-0 mx-auto">All users list:</h1>
 <hr class="my-0 mx-3">
-<div class="d-flex flex-column bg-white">
-    {% for user in users %}
-    <a class="d-flex text-decoration-none link-dark" href="{% url 'view_user' user.id %}">
-         <div class="d-flex flex-row mx-auto">
-            <img src="{{ user.avatar.url }}" class="rounded-circle p-2 flex-item" alt="img" width="65px" height="65px">
-            <h1 class="p-1 display-6 fs-3 my-auto">{{ user.first_name }} {{ user.last_name }}</h1>
-         </div>
-    </a>
+<div class="bg-white d-flex">
+    <div class="d-flex flex-column mx-auto">
+        {% for user in users %}
+        <a class="d-flex text-decoration-none link-dark" href="{% url 'view_user' user.id %}">
+             <div class="d-flex flex-row">
+                <img src="{{ user.avatar.url }}" class="rounded-circle p-2 flex-item" alt="img" width="65px" height="65px">
+                <h1 class="p-1 sub-main-title my-auto">{{ user.first_name }} {{ user.last_name }}</h1>
+             </div>
+        </a>
 
-    {% endfor %}
+        {% endfor %}
+    </div>
 </div>
+
 {% endblock %}

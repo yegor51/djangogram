@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.models import User
 from publications.models import Publication, Comment, Mark
@@ -13,13 +13,20 @@ def user_view(request, id):
             'user': user_object,
             'publications': Publication.objects.filter(author=user_object),
             'comments_count': Comment.objects.filter(author=user_object).count(),
+            'user_login': request.user,
         })
     except ObjectDoesNotExist:
-        return render(request, 'main/sorry_massage.html', {'message': 'This user does not exist.'})
+        return render(request, 'sorry_massage.html', {'message': 'This user does not exist.'})
 
 
 @login_required
 def all_users(request):
     return render(request, 'users/all_users.html', {
         'users': User.objects.all(),
+        'user_login': request.user,
     })
+
+
+@login_required
+def my_profile(request):
+    return redirect(f'/users/{request.user.id}/')

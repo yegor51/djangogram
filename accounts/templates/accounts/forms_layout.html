@@ -1,0 +1,48 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+        input{
+            float:right;
+            margin-left: auto;
+            padding: 5px;
+            border: 0 solid var(--bs-gray-500);
+            background-color: #dee2e6!important;
+        }
+
+        .errorlist.nonfield{
+            margin: 0;
+            padding: 0;
+            list-style-type:none;
+            justify-content:center;
+            display:flex;
+        }
+
+        li{
+            margin: auto;
+            color: var(--bs-danger);
+        }
+    </style>
+</head>
+<body style="background-color: var(--bs-gray-300)!important; height: 100vh;">
+    <div class="position-absolute top-50 start-50 translate-middle">
+        <div class="bg-light d-flex">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block post_content %}
+            {% endblock %}
+        </div>
+    </div>
+
+</body>
+</html>

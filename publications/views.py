@@ -13,6 +13,7 @@ def publication_view(request, id):
             'comments': Comment.objects.filter(publication=publication_object),
             'likes_count': Mark.objects.filter(publication=publication_object, value=True).count(),
             'dislikes_count': Mark.objects.filter(publication=publication_object, value=False).count(),
+            'user_login': request.user,
         })
     except ObjectDoesNotExist:
-        return render(request, 'main/sorry_massage.html', {'message': 'This publication does not exist.'})
+        return render(request, 'sorry_massage.html', {'message': 'This publication does not exist.'})
