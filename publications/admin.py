@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Publication, Comment, Mark
+from .models import Publication, Comment
 
 
 admin.site.register(Publication)
 admin.site.register(Comment)
-admin.site.register(Mark)

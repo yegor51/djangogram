@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+New publication
+{% endblock %}
+
+
+{% block content %}
+<div class="p-3">
+    <span class="main-title">
+        publication:
+    </span>
+<form enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+
+    <div class="mt-2">
+        {{ form.publication_name.errors }}
+        <label class="m-0" for="{{ form.publication_name.id_for_label }}">publication name:</label>
+        {{ form.publication_name }}
+    </div>
+
+    <div class="mt-2">
+        {{ form.image.errors }}
+        <label class="m-0" for="{{ form.image.id_for_label }}">upload photo:</label>
+        {{ form.image }}
+    </div>
+
+    <div class="mt-2">
+        {{ form.description.errors }}
+        <label class="m-0" for="{{ form.description.id_for_label }}">description:</label>
+        {{ form.description }}
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+        <input class="btn btn-primary " type="submit" value="publish">
+    </div>
+
+
+</form>
+</div>
+{% endblock %}

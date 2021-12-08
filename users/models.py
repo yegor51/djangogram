@@ -30,3 +30,18 @@ class User(AbstractUser):
         new_user.set_password(password)
         new_user.save()
         return new_user
+
+    def edit_profile(self, bio=None, avatar=None, first_name=None, last_name=None):
+        if bio is not None:
+            self.bio = bio
+
+        if avatar:
+            self.avatar = avatar
+
+        if first_name:
+            self.first_name = first_name
+
+        if last_name:
+            self.last_name = last_name
+
+        self.save()

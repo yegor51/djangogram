@@ -8,7 +8,7 @@
 {% block content %}
 <div class="bg-white">
     <div class="bg-white">
-        <a class="d-flex link-dark text-decoration-none" href="{% url 'view_user' publication.author.id %}">
+        <a class="d-flex text-dark text-decoration-none" href="{% url 'view_user' publication.author.id %}">
             <div class="d-flex flex-row m-2">
                 <img src="{{ publication.author.avatar.url }}" class="rounded-circle p-2" alt="img" width="70px" height="70px">
                 <h3 class="main-title align-text-bottom my-auto">{{ publication.author.first_name }} {{ publication.author.last_name }}</h3>
@@ -22,17 +22,26 @@
                 <span class="m-0 main-title">{{ publication.publication_name }}</span>
                 <p class="m-0">{{ publication.publication_date }}</p>
             </div>
-            <div class="m-1 mt-auto d-flex flex-row align-items-end">
-<!--                like-->
-                <svg style="margin-bottom:5px" width="25" height="25" viewBox="0 0 16 16">
-                    {% include 'icons/like.html' %}
-                </svg>
-                <p class="my-auto fs-5 display-1 me-3">{{ likes_count }}</p>
-<!--                dislike-->
-                <svg width="25" height="25" viewBox="0 0 16 16">
-                    {% include 'icons/dislike.html' %}
-                </svg>
-                <p class="my-auto fs-5 display-1">{{ dislikes_count }}</p>
+            <div class="m-1 mt-auto align-items-end">
+                {% if publication %} {{ request.user }} {% endif %}
+                <form class="d-flex flex-row " action="{% url 'like_publication' publication.id %}" method="post">
+                    {% csrf_token %}
+    <!--                like-->
+                    <button class="text-decoration-none btn btn-link d-flex flex-row" type="submit" name="value" value="like">
+                        <svg style="margin-bottom:5px" width="25" height="25" viewBox="0 0 16 16">
+                            {% include 'icons/like.html' %}
+                        </svg>
+                        <p class="my-auto">{{ publication.likes.count }}</p>
+                    </button>
+
+    <!--                dislike-->
+                    <button class="text-decoration-none btn btn-link d-flex flex-row" type="submit" name="value" value="dislike">
+                        <svg width="25" height="25" viewBox="0 0 16 16">
+                            {% include 'icons/dislike.html' %}
+                        </svg>
+                        <p class="my-auto">{{ publication.dislikes.count }}</p>
+                    </button>
+                </form>
             </div>
         </div>
         {% if publication.description %}
@@ -47,9 +56,22 @@
 <!--comments-->
 {% if comments %}
 <div class="mx-5 pb-4">
-    <span class="text-secondary mx-auto my-1 chapter-title">
+    <span class="mx-auto my-1 chapter-title">
         comments:
     </span>
+    <div class="bg-white p-2 px-3 my-1">
+        <form method="post">
+            {% csrf_token %}
+            <div class="mt-2">
+                {{ comment_form.text.errors }}
+                <label class="m-0" for="{{ comment_form.text.id_for_label }}">write comment:</label>
+                {{ comment_form.text }}
+            </div>
+            <div class="mt-1">
+                <input class="btn btn-primary " type="submit" value="submit">
+            </div>
+        </form>
+    </div>
     <div>
         {% for comment in comments %}
 <!--        comment-->
@@ -57,13 +79,13 @@
 
                 <div class="d-flex justify-content-between">
 <!--                    comment author-->
-                    <a class="link-dark text-decoration-none" href="{% url 'view_user' comment.author.id %}">
+                    <a class="text-dark text-decoration-none" href="{% url 'view_user' comment.author.id %}">
                         <p class="m-0">
                         {{ comment.author.first_name }} {{ comment.author.last_name }}:
                         </p>
                     </a>
 <!--                    comment date-->
-                    <p class="mt-auto mb-0 mr-auto">{{ comment.publication_date.date }}</p>
+                    <p class="mt-auto mb-0 ml-auto"> {{ comment.publication_date.date }}</p>
                 </div>
 
             <hr class="my-1">

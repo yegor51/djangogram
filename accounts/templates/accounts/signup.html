@@ -7,45 +7,45 @@ login
 
 
 {% block content %}
-<div class="m-3 d-flex flex-column">
-    <h1 class="display-5 mx-auto mb-3">login</h1>
+<div class="m-3 d-flex flex-column" style="min-width: 300px">
+    <h1 class="display-5 mx-auto mb-3">register</h1>
     <form method="POST">
         {% csrf_token %}
 <!--        {{ form }}-->
         {{ form.non_field_errors }}
 
-        <div class="m-2 d-flex">
+        <div class="m-2">
             {{ form.email.errors }}
             <label class="display-1 fs-5 me-3" for="{{ form.email.id_for_label }}">Email:</label>
             {{ form.email }}
         </div>
 
-        <div class="m-2 d-flex">
+        <div class="m-2">
             {{ form.first_name.errors }}
             <label class="display-1 fs-5 me-3" for="{{ form.first_name.id_for_label }}">First name:</label>
             {{ form.first_name }}
         </div>
 
-        <div class="m-2 d-flex">
+        <div class="m-2">
             {{ form.last_name.errors }}
             <label class="display-1 fs-5 me-3"  for="{{ form.last_name.id_for_label }}">Last name:</label>
             {{ form.last_name }}
         </div>
 
-        <div class="m-2 d-flex">
+        <div class="m-2">
             {{ form.password.errors }}
             <label class="display-1 fs-5 me-3"  for="{{ form.password.id_for_label }}">Password:</label>
             {{ form.password }}
         </div>
 
-        <div class="m-2 d-flex">
+        <div class="m-2">
             {{ form.password_confirm.errors }}
             <label class="display-1 fs-5 me-3"  for="{{ form.password_confirm.id_for_label }}">Confirm password:</label>
             {{ form.password_confirm }}
         </div>
 
         <div class="d-flex justify-content-center mt-4">
-            <input class="mx-auto float-start border-0 w-50" type="submit" value="Register">
+            <input class="mx-auto p-1 float-start border-0 w-50" type="submit" value="Register">
         </div>
 
 

@@ -7,26 +7,26 @@ login
 
 
 {% block content %}
-<div class="m-3 d-flex flex-column">
+<div class="m-3 d-flex flex-column"  style="min-width: 300px">
     <h1 class="display-5 mx-auto mb-3">login</h1>
     <form method="POST">
         {% csrf_token %}
         {{ form.non_field_errors }}
 
-        <div class="m-2 d-flex">
+        <div class="m-2">
             {{ form.email.errors }}
             <label class="display-1 fs-5 me-3" for="{{ form.email.id_for_label }}">Email:</label>
             {{ form.email }}
         </div>
 
-        <div class="m-2 d-flex">
+        <div class="m-2">
             {{ form.password.errors }}
             <label class="display-1 fs-5 me-3"  for="{{ form.password.id_for_label }}">Password:</label>
             {{ form.password }}
         </div>
 
         <div class="d-flex justify-content-center mt-4">
-            <input class="mx-auto float-start border-0 w-50" type="submit" value="Login">
+            <input class="mx-auto p-1 float-start border-0 w-50" type="submit" value="Login">
         </div>
 
 

@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate
 
 
 class UserLoginForm(forms.Form):
-    email = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control"}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': "form-control"}))
 
     def clean(self, *args, **kwargs):
         email = self.cleaned_data.get('email')
@@ -24,11 +24,15 @@ class UserLoginForm(forms.Form):
 
 
 class UserRegisterForm(forms.ModelForm):
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput(), label='set password')
-    password_confirm = forms.CharField(widget=forms.PasswordInput(), label='confirm password')
-    first_name = forms.CharField(max_length=30)
-    last_name = forms.CharField(max_length=30)
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class': "form-control"}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': "form-control"}),
+                               label='set password')
+    password_confirm = forms.CharField(widget=forms.PasswordInput(attrs={'class': "form-control"}),
+                                       label='confirm password')
+    first_name = forms.CharField(max_length=30,
+                                 widget=forms.TextInput(attrs={'class': "form-control"}))
+    last_name = forms.CharField(max_length=30,
+                                widget=forms.TextInput(attrs={'class': "form-control"}))
 
     class Meta:
         model = User

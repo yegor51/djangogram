@@ -11,7 +11,7 @@ Users
 <div class="bg-white d-flex">
     <div class="d-flex flex-column mx-auto">
         {% for user in users %}
-        <a class="d-flex text-decoration-none link-dark" href="{% url 'view_user' user.id %}">
+        <a class="d-flex text-decoration-none text-dark" href="{% url 'view_user' user.id %}">
              <div class="d-flex flex-row">
                 <img src="{{ user.avatar.url }}" class="rounded-circle p-2 flex-item" alt="img" width="65px" height="65px">
                 <h1 class="p-1 sub-main-title my-auto">{{ user.first_name }} {{ user.last_name }}</h1>
