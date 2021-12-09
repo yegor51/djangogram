@@ -51,10 +51,10 @@
 
 <!--edit profile-->
     {% if user == request.user %}
-    <span class="sub-main-title">
-        edit:
-    </span>
     <form class="collapse switch-edit-profile" id="edit-info-panel" enctype="multipart/form-data" method="POST">
+        <span class="sub-main-title">
+            edit:
+        </span>
         {% csrf_token %}
         <div class="flex-row d-flex">
             <div class="me-2">

@@ -23,13 +23,17 @@
                 <p class="m-0">{{ publication.publication_date }}</p>
             </div>
             <div class="m-1 mt-auto align-items-end">
-                {% if publication %} {{ request.user }} {% endif %}
+                {% if request.user in publication.likes.all %} {% endif %}
                 <form class="d-flex flex-row " action="{% url 'like_publication' publication.id %}" method="post">
                     {% csrf_token %}
     <!--                like-->
                     <button class="text-decoration-none btn btn-link d-flex flex-row" type="submit" name="value" value="like">
                         <svg style="margin-bottom:5px" width="25" height="25" viewBox="0 0 16 16">
+                            {% if request.user in publication.likes.all %}
+                            {% include 'icons/like_filled.html' %}
+                            {% else %}
                             {% include 'icons/like.html' %}
+                            {% endif %}
                         </svg>
                         <p class="my-auto">{{ publication.likes.count }}</p>
                     </button>
@@ -37,7 +41,11 @@
     <!--                dislike-->
                     <button class="text-decoration-none btn btn-link d-flex flex-row" type="submit" name="value" value="dislike">
                         <svg width="25" height="25" viewBox="0 0 16 16">
+                            {% if request.user in publication.dislikes.all %}
+                            {% include 'icons/dislike_filled.html' %}
+                            {% else %}
                             {% include 'icons/dislike.html' %}
+                            {% endif %}
                         </svg>
                         <p class="my-auto">{{ publication.dislikes.count }}</p>
                     </button>
