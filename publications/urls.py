@@ -5,4 +5,6 @@ urlpatterns = [
     path('<int:publication_id>/', views.publication_view, name='view_publication'),
     path('new/', views.create_publication, name='create_publication'),
     path('like-publication/<int:publication_id>/', views.like_publication, name='like_publication'),
+    path('delete/<int:publication_id>/', views.delete_publication, name='delete_publication'),
+    path('delete-comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
 ]

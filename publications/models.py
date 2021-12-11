@@ -21,7 +21,6 @@ class Publication(models.Model):
         return new_publication
 
     def set_mark(self, user, value):
-        print(value)
         if value == 'like':
             self.likes.add(user)
             self.dislikes.remove(user)

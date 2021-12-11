@@ -52,6 +52,14 @@
                 </form>
             </div>
         </div>
+        {% if publication.author == request.user %}
+
+        <hr class="my-1">
+
+        <a class="btn btn-outline-danger w-100" href="{% url 'delete_publication' publication.id %}">delete publication</a>
+
+        {% endif %}
+
         {% if publication.description %}
         <hr class="my-1">
         <p class="py-2 h-3" style="white-space: pre-line">{{ publication.description }}</p>
@@ -62,7 +70,6 @@
 </div>
 
 <!--comments-->
-{% if comments %}
 <div class="mx-5 pb-4">
     <span class="mx-auto my-1 chapter-title">
         comments:
@@ -80,10 +87,11 @@
             </div>
         </form>
     </div>
+    {% if comments %}
     <div>
         {% for comment in comments %}
 <!--        comment-->
-        <div class="bg-white p-2 px-3 my-1">
+        <div class="bg-white p-2 pb-3 px-3 my-1">
 
                 <div class="d-flex justify-content-between">
 <!--                    comment author-->
@@ -98,11 +106,15 @@
 
             <hr class="my-1">
 <!--            comment text-->
-            <p class="" style="white-space: pre-line;">{{ comment.text }}</p>
+            <p class="mb-0" style="white-space: pre-line;">{{ comment.text }}</p>
+            {% if comment.author == request.user %}
+            <a class="py-0 mt-2 text-danger text-decoration-none btn btn-link" href="{% url 'delete_comment' comment.id %}">
+                delete comment</a>
+            {% endif %}
         </div>
         {% endfor %}
     </div>
+    {% endif %}
 </div>
-{% endif %}
 
 {% endblock %}

@@ -53,3 +53,21 @@ def like_publication(request, publication_id):
         publication.set_mark(request.user, request.POST.get('value'))
 
     return redirect('view_publication', publication_id)
+
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if comment.author == request.user:
+        comment.delete()
+
+    return redirect('view_publication', comment.publication.id)
+
+
+@login_required
+def delete_publication(request, publication_id):
+    publication = get_object_or_404(Publication, id=publication_id)
+    if publication.author == request.user:
+        publication.delete()
+
+    return redirect('view_user', publication.author.id)
