@@ -110,7 +110,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-if DEBUG:
+if False:
     STATICFILES_DIRS = [
         BASE_DIR / "static"
     ]
