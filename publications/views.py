@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from djangogramm.utils import confirm_email_required
 from .models import Publication, Comment
 from .forms import CreatePublicationForm, CreateCommentForm
 
 
 @login_required
+@confirm_email_required
 def publication_view(request, publication_id):
     publication_object = get_object_or_404(Publication, id=publication_id)
     if request.method == 'POST':
@@ -26,6 +28,7 @@ def publication_view(request, publication_id):
 
 
 @login_required
+@confirm_email_required
 def create_publication(request):
     if request.method == 'POST':
         form = CreatePublicationForm(request.POST, request.FILES)
@@ -46,6 +49,7 @@ def create_publication(request):
 
 
 @login_required
+@confirm_email_required
 def like_publication(request, publication_id):
     if request.method == 'POST':
 
@@ -56,18 +60,22 @@ def like_publication(request, publication_id):
 
 
 @login_required
+@confirm_email_required
 def delete_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
-    if comment.author == request.user:
-        comment.delete()
+    if request.method == 'POST':
+        if comment.author == request.user:
+            comment.delete()
 
     return redirect('view_publication', comment.publication.id)
 
 
 @login_required
+@confirm_email_required
 def delete_publication(request, publication_id):
     publication = get_object_or_404(Publication, id=publication_id)
-    if publication.author == request.user:
-        publication.delete()
+    if request.method == 'POST':
+        if publication.author == request.user:
+            publication.delete()
 
     return redirect('view_user', publication.author.id)

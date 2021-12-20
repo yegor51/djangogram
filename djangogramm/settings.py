@@ -110,7 +110,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-if False:
+if True:
     STATICFILES_DIRS = [
         BASE_DIR / "static"
     ]
@@ -121,3 +121,9 @@ else:
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'tsema.yegor.djangogramm@gmail.com'
+EMAIL_HOST_PASSWORD = 'django2021'
+EMAIL_PORT = 587

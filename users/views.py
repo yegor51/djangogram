@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from djangogramm.utils import confirm_email_required
 from .models import User
 from .forms import EditProfileForm
 from publications.models import Publication, Comment
 
 
 @login_required
+@confirm_email_required
 def user_view(request, user_id):
     edit_profile_form_inital = {
         'first_name': request.user.first_name,
@@ -41,6 +43,7 @@ def user_view(request, user_id):
 
 
 @login_required
+@confirm_email_required
 def all_users(request):
     return render(request, 'users/all_users.html', {
         'users': User.objects.all(),
@@ -48,5 +51,6 @@ def all_users(request):
 
 
 @login_required
+@confirm_email_required
 def my_profile(request):
     return redirect(f'/users/{request.user.id}/')

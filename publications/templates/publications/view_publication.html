@@ -6,7 +6,7 @@
 
 
 {% block content %}
-<div class="bg-white">
+<div class="bg-white border-bottom">
     <div class="bg-white">
         <a class="d-flex text-dark text-decoration-none" href="{% url 'view_user' publication.author.id %}">
             <div class="d-flex flex-row m-2">
@@ -56,9 +56,13 @@
 
         <hr class="my-1">
 
-        <a class="btn btn-outline-danger w-100" href="{% url 'delete_publication' publication.id %}">delete publication</a>
+        <form action="{% url 'delete_publication' publication.id %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-outline-danger w-100" type="submit">delete publication</button>
+        </form>
 
         {% endif %}
+
 
         {% if publication.description %}
         <hr class="my-1">
@@ -70,11 +74,11 @@
 </div>
 
 <!--comments-->
-<div class="mx-5 pb-4">
+<div class="mx-3 pb-4">
     <span class="mx-auto my-1 chapter-title">
         comments:
     </span>
-    <div class="bg-white p-2 px-3 my-1">
+    <div class="bg-white p-2 px-3 my-1  border rounded">
         <form method="post">
             {% csrf_token %}
             <div class="mt-2">
@@ -91,7 +95,7 @@
     <div>
         {% for comment in comments %}
 <!--        comment-->
-        <div class="bg-white p-2 pb-3 px-3 my-1">
+        <div class="bg-white p-2 pb-3 px-3 my-1 border rounded">
 
                 <div class="d-flex justify-content-between">
 <!--                    comment author-->
@@ -107,10 +111,12 @@
             <hr class="my-1">
 <!--            comment text-->
             <p class="mb-0" style="white-space: pre-line;">{{ comment.text }}</p>
-            {% if comment.author == request.user %}
-            <a class="py-0 mt-2 text-danger text-decoration-none btn btn-link" href="{% url 'delete_comment' comment.id %}">
-                delete comment</a>
-            {% endif %}
+                {% if comment.author == request.user %}
+                <form action="{% url 'delete_comment' comment.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="py-0 mt-2 text-danger text-decoration-none btn btn-link" type="submit">delete publication</button>
+                </form>
+                {% endif %}
         </div>
         {% endfor %}
     </div>

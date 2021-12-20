@@ -1,6 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from users.managers import UserManager
+from django.contrib.sites.shortcuts import get_current_site
+from .tokens import account_activation_token
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_text
 
 
 class User(AbstractUser):
@@ -12,6 +18,7 @@ class User(AbstractUser):
     bio = models.TextField(blank=True, default='')
     avatar = models.ImageField(upload_to='static/img/',
                                default='static/default/blank_avatar.png')
+    is_email_confirmed = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -45,3 +52,16 @@ class User(AbstractUser):
             self.last_name = last_name
 
         self.save()
+
+    def send_confirmation_link(self, current_site):
+        mail_subject = 'Activate your account.'
+        message = render_to_string('users/confirm_email_massage_template.html', {
+            'user': self,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(self.pk)),
+            'token': account_activation_token.make_token(self),
+        })
+        email = EmailMessage(
+            mail_subject, message, to=[self.email]
+        )
+        email.send()

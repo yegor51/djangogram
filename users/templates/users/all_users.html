@@ -6,9 +6,11 @@ Users
 
 
 {% block content %}
-<h1 class="main-title p-2 my-0 mx-auto">All users list:</h1>
-<hr class="my-0 mx-3">
-<div class="bg-white d-flex">
+<div class="bg-white border-bottom d-flex">
+    <h1 class="main-title p-2 my-0 mx-auto">All users list:</h1>
+</div>
+
+<div class="d-flex">
     <div class="d-flex flex-column mx-auto">
         {% for user in users %}
         <a class="d-flex text-decoration-none text-dark" href="{% url 'view_user' user.id %}">
