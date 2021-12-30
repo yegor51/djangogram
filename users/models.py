@@ -1,12 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from users.managers import UserManager
-from django.contrib.sites.shortcuts import get_current_site
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes
 
 
 class User(AbstractUser):
@@ -29,13 +28,15 @@ class User(AbstractUser):
         return f'{self.first_name} {self.last_name} {self.email}'
 
     @staticmethod
-    def create_user(email, password, first_name, last_name):
+    def create_user(email, password, first_name, last_name, is_active=True, commit=True):
         new_user = User(email=email,
                         first_name=first_name,
                         last_name=last_name,
+                        is_active=is_active
                         )
         new_user.set_password(password)
-        new_user.save()
+        if commit:
+            new_user.save()
         return new_user
 
     def edit_profile(self, bio=None, avatar=None, first_name=None, last_name=None):

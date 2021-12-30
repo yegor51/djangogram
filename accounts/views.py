@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.sites.shortcuts import get_current_site
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.http import urlsafe_base64_decode
 from accounts.forms import UserLoginForm, UserRegisterForm
 from users.models import User
 from users.tokens import account_activation_token
@@ -73,6 +73,7 @@ def email_not_confirmed_view(request):
         return redirect('my_profile')
 
 
+@login_required
 def send_activation_link_view(request):
     if request.method == 'POST':
         current_site = get_current_site(request)

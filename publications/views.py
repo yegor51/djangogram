@@ -50,11 +50,15 @@ def create_publication(request):
 
 @login_required
 @confirm_email_required
-def like_publication(request, publication_id):
+def set_publication_mark(request, publication_id):
     if request.method == 'POST':
 
         publication = get_object_or_404(Publication, id=publication_id)
-        publication.set_mark(request.user, request.POST.get('value'))
+        value = request.POST.get('value')
+        if value == 'like':
+            publication.set_like(request.user)
+        elif value == 'dislike':
+            publication.set_dislike(request.user)
 
     return redirect('view_publication', publication_id)
 
