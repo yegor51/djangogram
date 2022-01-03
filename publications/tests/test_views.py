@@ -7,7 +7,7 @@ from parameterized import parameterized
 
 class TestViews(TestCase):
     def setUp(self):
-        self.user_1 = User.create_user('test_email_1@gmail.com',
+        self.user_1 = User.create('test_email_1@gmail.com',
                                        'test_password_1',
                                        'test_first_name_1',
                                        'test_last_name_1')
@@ -15,14 +15,14 @@ class TestViews(TestCase):
         self.user_1.save()
 
         self.publication_1 = Publication(author=self.user_1,
-                                         publication_name='publication_1',
+                                         name='publication_1',
                                          image='static/img/image_1.png',
                                          description='description_1')
         self.publication_1.save()
 
-        self.comment_1 = Comment.create_comment(self.publication_1, self.user_1, 'text_1')
+        self.comment_1 = Comment.create(self.publication_1, self.user_1, 'text_1')
 
-        self.user_2 = User.create_user('test_email_2@gmail.com',
+        self.user_2 = User.create('test_email_2@gmail.com',
                                        'test_password_2',
                                        'test_first_name_2',
                                        'test_last_name_2')
@@ -129,7 +129,7 @@ class TestViews(TestCase):
                                                publication=self.publication_1,
                                                text='text_1').exists())
         self.assertTrue(Publication.objects.filter(author=self.user_1,
-                                                   publication_name='publication_1',
+                                                   name='publication_1',
                                                    image='static/img/image_1.png',
                                                    description='description_1',
                                                    ))
@@ -142,7 +142,7 @@ class TestViews(TestCase):
                                                 publication=self.publication_1,
                                                 text='text_1').exists())
         self.assertFalse(Publication.objects.filter(author=self.user_1,
-                                                    publication_name='publication_1',
+                                                    name='publication_1',
                                                     image='static/img/image_1.png',
                                                     description='description_1',
                                                     ))
@@ -156,7 +156,7 @@ class TestViews(TestCase):
                                                publication=self.publication_1,
                                                text='text_1').exists())
         self.assertTrue(Publication.objects.filter(author=self.user_1,
-                                                   publication_name='publication_1',
+                                                   name='publication_1',
                                                    image='static/img/image_1.png',
                                                    description='description_1',
                                                    ))
@@ -169,7 +169,7 @@ class TestViews(TestCase):
                                                publication=self.publication_1,
                                                text='text_1').exists())
         self.assertTrue(Publication.objects.filter(author=self.user_1,
-                                                   publication_name='publication_1',
+                                                   name='publication_1',
                                                    image='static/img/image_1.png',
                                                    description='description_1',
                                                    ))

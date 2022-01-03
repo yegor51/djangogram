@@ -28,7 +28,7 @@ class User(AbstractUser):
         return f'{self.first_name} {self.last_name} {self.email}'
 
     @staticmethod
-    def create_user(email, password, first_name, last_name, is_active=True, commit=True):
+    def create(email, password, first_name, last_name, is_active=True, commit=True):
         new_user = User(email=email,
                         first_name=first_name,
                         last_name=last_name,

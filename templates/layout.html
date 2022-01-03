@@ -14,11 +14,10 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body style="background-color: #dee2e6;">
-<div class="flex-row d-flex">
+{% include 'sitebar.html' %}
+<div class="flex-row d-flex" style="margin-left: 280px;">
 
-    {% include 'sitebar.html' %}
-
-    <div class="w-50 mx-auto">
+    <div class="w-75 mx-auto">
 
         <div class="d-flex flex-column bg-light min-vh-100 mx-5">
             {% block content %}

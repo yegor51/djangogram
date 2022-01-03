@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-{{ publication.publication_name }}
+{{ publication.name }}
 {% endblock %}
 
 
@@ -19,7 +19,7 @@
     <div class="p-0 my-1 mx-3">
         <div class="d-flex justify-content-between">
             <div>
-                <span class="m-0 main-title">{{ publication.publication_name }}</span>
+                <span class="m-0 main-title">{{ publication.name }}</span>
                 <p class="m-0">{{ publication.publication_date }}</p>
             </div>
             <div class="m-1 mt-auto align-items-end">

@@ -13,7 +13,7 @@ class TestModels(TestCase):
         self.user_1.save()
 
         self.publication_1 = Publication(author=self.user_1,
-                                         publication_name='publication_2',
+                                         name='publication_2',
                                          image='static/img/image_2.png',
                                          description='description_2')
 
@@ -27,12 +27,12 @@ class TestModels(TestCase):
         self.user_2.save()
 
     def test_create_publication(self):
-        Publication.create_publication(self.user_1,
+        Publication.create(self.user_1,
                                        'publication_2',
                                        'static/img/image_2.png',
                                        'description_2')
 
-        self.assertTrue(Publication.objects.filter(publication_name='publication_2',
+        self.assertTrue(Publication.objects.filter(name='publication_2',
                                                    image='static/img/image_2.png',
                                                    description='description_2').exists())
 
@@ -78,7 +78,7 @@ class TestModels(TestCase):
         self.assertEqual(self.publication_1.dislikes.count(), 0)
 
     def test_create_comment(self):
-        Comment.create_comment(self.publication_1,
+        Comment.create(self.publication_1,
                                self.user_1,
                                'text_1')
 

@@ -33,7 +33,7 @@ def register_view(request):
         email = form.cleaned_data.get('email')
         first_name = form.cleaned_data.get('first_name')
         last_name = form.cleaned_data.get('last_name')
-        user = User.create_user(email, password, first_name, last_name)
+        user = User.create(email, password, first_name, last_name)
         new_user = authenticate(email=user.email, password=password)
         login(request, new_user)
         user.send_confirmation_link(get_current_site(request))

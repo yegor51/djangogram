@@ -12,7 +12,7 @@ def publication_view(request, publication_id):
     if request.method == 'POST':
         comment_form = CreateCommentForm(request.POST)
         if comment_form.is_valid():
-            Comment.create_comment(publication_object,
+            Comment.create(publication_object,
                                    request.user,
                                    comment_form.cleaned_data.get('text')
                                    )
@@ -33,9 +33,9 @@ def create_publication(request):
     if request.method == 'POST':
         form = CreatePublicationForm(request.POST, request.FILES)
         if form.is_valid():
-            new_publication = Publication.create_publication(
+            new_publication = Publication.create(
                 author=request.user,
-                publication_name=form.cleaned_data.get('publication_name'),
+                name=form.cleaned_data.get('name'),
                 image=form.cleaned_data.get('image'),
                 description=form.cleaned_data.get('description'),
             )

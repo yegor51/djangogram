@@ -6,14 +6,14 @@ from parameterized import parameterized
 
 class TestViews(TestCase):
     def setUp(self):
-        self.test_user = User.create_user('test_email_1@gmail.com',
+        self.test_user = User.create('test_email_1@gmail.com',
                                           'test_password_1',
                                           'test_first_name_1',
                                           'test_last_name_1')
         self.test_user.is_email_confirmed = True
         self.test_user.save()
 
-        self.test_unconfirmed_user = User.create_user('test_email_2@gmail.com',
+        self.test_unconfirmed_user = User.create('test_email_2@gmail.com',
                                                       'test_password_2',
                                                       'test_first_name_2',
                                                       'test_last_name_2')

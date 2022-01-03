@@ -6,8 +6,8 @@ from accounts.forms import UserLoginForm, UserRegisterForm
 
 class TestUserLoginForm(TestCase):
     def setUp(self):
-        self.test_user = User.create_user('test_email@gmail.com', 'test_password', 'test_first_name', 'test_last_name')
-        self.test_not_active_user = User.create_user('test_email_2@gmail.com',
+        self.test_user = User.create('test_email@gmail.com', 'test_password', 'test_first_name', 'test_last_name')
+        self.test_not_active_user = User.create('test_email_2@gmail.com',
                                                      'test_password_2',
                                                      'test_first_name_2',
                                                      'test_last_name_2',
@@ -31,7 +31,7 @@ class TestUserLoginForm(TestCase):
 
 class TestUserRegisterForm(TestCase):
     def setUp(self):
-        self.test_user = User.create_user('test_email@gmail.com', 'test_password', 'test_first_name', 'test_last_name')
+        self.test_user = User.create('test_email@gmail.com', 'test_password', 'test_first_name', 'test_last_name')
 
     def test_form_correct_data(self):
         form = UserRegisterForm(data={'email': 'test_email_2@gmail.com',

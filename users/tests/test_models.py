@@ -13,11 +13,11 @@ class TestUserModel(TestCase):
         self.test_user_1.save()
 
     def test_create_user(self):
-        User.create_user('email_1@gmail.com', 'password_1', 'first_name_1', 'last_name_1')
+        User.create('email_1@gmail.com', 'password_1', 'first_name_1', 'last_name_1')
         self.assertTrue(User.objects.filter(email='email_1@gmail.com').exists())
 
         with self.assertRaises(IntegrityError):
-            User.create_user('email_1@gmail.com', 'password_2', 'first_name_2', 'last_name_2')
+            User.create('email_1@gmail.com', 'password_2', 'first_name_2', 'last_name_2')
 
     def test_edit_profile(self):
         self.test_user_1.edit_profile(bio='new_bio')

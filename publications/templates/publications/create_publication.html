@@ -14,9 +14,9 @@ New publication
     {% csrf_token %}
 
     <div class="mt-2">
-        {{ form.publication_name.errors }}
-        <label class="m-0" for="{{ form.publication_name.id_for_label }}">publication name:</label>
-        {{ form.publication_name }}
+        {{ form.name.errors }}
+        <label class="m-0" for="{{ form.name.id_for_label }}">publication name:</label>
+        {{ form.name }}
     </div>
 
     <div class="mt-2">

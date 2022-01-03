@@ -4,7 +4,7 @@ from users.models import User
 
 class Publication(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    publication_name = models.CharField(max_length=50, default='None')
+    name = models.CharField(max_length=50, default='None')
     image = models.ImageField(upload_to='static/img/')
     description = models.TextField(blank=True, default='')
     publication_date = models.DateTimeField(auto_now_add=True, blank=True)
@@ -12,9 +12,9 @@ class Publication(models.Model):
     dislikes = models.ManyToManyField(User, blank=True, related_name='dislikes_as_publication')
 
     @staticmethod
-    def create_publication(author, publication_name, image, description, commit=True):
+    def create(author, name, image, description, commit=True):
         new_publication = Publication(author=author,
-                                      publication_name=publication_name,
+                                      name=name,
                                       image=image,
                                       description=description)
         if commit:
@@ -34,7 +34,7 @@ class Publication(models.Model):
         self.dislikes.remove(user)
 
     def __str__(self):
-        return self.publication_name
+        return self.name
 
 
 class Comment(models.Model):
@@ -44,7 +44,7 @@ class Comment(models.Model):
     publication_date = models.DateTimeField(auto_now_add=True, blank=True)
 
     @staticmethod
-    def create_comment(publication, author, text, commit=True):
+    def create(publication, author, text, commit=True):
         new_comment = Comment(
             publication=publication,
             author=author,

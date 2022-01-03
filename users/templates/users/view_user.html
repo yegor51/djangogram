@@ -41,7 +41,7 @@
             <p class="m-0" style="white-space: pre-line">{{ user.bio }}</p>
             {% else %}
 
-            <p class="m-0">
+            <p class="m-0 text-muted">
                 no information about user...
             </p>
 
@@ -103,16 +103,19 @@
     </h1>
     {% endif %}
 
-    {% for publication in publications %}
-    <a class="text-dark text-decoration-none" href="{% url 'view_publication' publication.id %}">
-    <div class="h-3 mb-3 bg-white d-flex flex-column border rounded">
-        <div class="mx-3 my-2 mb-1">
-            <h2 class="m-0 sub-main-title">{{ publication.publication_name }}</h2>
-            <p class=" my-0">{{publication.publication_date}}</p>
+    <div class="d-flex flex-wrap">
+        {% for publication in publications %}
+        <a class="text-dark text-decoration-none" href="{% url 'view_publication' publication.id %}">
+        <div class="h-3 me-3 mb-3 bg-white d-flex flex-column border rounded overflow-hidden" style="width: 250px; height: 300px">
+            <div class="mx-3 my-2 mb-1">
+                <h2 class="m-0 sub-main-title">{{ publication.name }}</h2>
+                <p class=" my-0">{{publication.publication_date}}</p>
+            </div>
+            <img class="p-0 my-auto" src="{{ publication.image.url }}" alt="img" >
         </div>
-        <img class="p-0" src="{{ publication.image.url }}" alt="img" width="100%">
+        </a>
+        {% endfor %}
     </div>
-    </a>
-    {% endfor %}
+
 </div>
 {% endblock %}
