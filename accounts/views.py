@@ -58,8 +58,8 @@ def confirm_email_view(request, uidb64, token):
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
     if user is not None and account_activation_token.check_token(user, token):
-        request.user.is_email_confirmed = True
-        request.user.save()
+        user.is_email_confirmed = True
+        user.save()
         return render(request, 'accounts/successfully_email_confirmation.html')
     else:
         return render(request, 'accounts/invalid_email_confirmation_link.html')
