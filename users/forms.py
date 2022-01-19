@@ -3,6 +3,7 @@ from .models import User
 
 
 class EditProfileForm(forms.ModelForm):
+    """change first_name, last_name, bio, avatar fields of User object"""
     class Meta():
             model = User
             fields = ('first_name', 'last_name', 'bio', 'avatar')

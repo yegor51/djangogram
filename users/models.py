@@ -9,6 +9,22 @@ from django.utils.encoding import force_bytes
 
 
 class User(AbstractUser):
+    """
+    user model, inherited from django AbstractUser model.
+
+    fields:
+        first_name: String, first name of user.
+        last_name: String, last name of user.
+        email: String, email address of user.
+        bio: text, some information about user.
+        avatar: Image, avatar of user.
+        is_email_confirmed: Boolean, some functions is not available for user, if email not confirmed.
+
+    methods:
+        create: create User object.
+        edit_profile: change some fields of User object.
+        send_activation_link: send email confirmation link to user email.
+    """
     username = None
 
     first_name = models.CharField(max_length=50)
@@ -29,6 +45,19 @@ class User(AbstractUser):
 
     @staticmethod
     def create(email, password, first_name, last_name, is_active=True, commit=True):
+        """
+        create new User object.
+
+        params:
+            first_name: String, first name of user.
+            last_name: String, last name of user.
+            email: String, email address of user.
+            bio: text, some information about user.
+            avatar: Image, avatar of user.
+            commit: Boolean, save user object if true.
+
+        returns: new User object.
+        """
         new_user = User(email=email,
                         first_name=first_name,
                         last_name=last_name,
@@ -40,6 +69,15 @@ class User(AbstractUser):
         return new_user
 
     def edit_profile(self, bio=None, avatar=None, first_name=None, last_name=None):
+        """
+        change some fields of User object.
+
+        params:
+            bio: Text, optional, new bio of user.
+            avatar: Image, optional, new avatar of user.
+            first_name: String, optional, new first name of user.
+            last_name: String, optional, new last name of user.
+        """
         if bio is not None:
             self.bio = bio
 
@@ -55,6 +93,9 @@ class User(AbstractUser):
         self.save()
 
     def send_confirmation_link(self, current_site):
+        """
+         send email confirmation link to user email.
+        """
         mail_subject = 'Activate your account.'
         message = render_to_string('users/confirm_email_massage_template.html', {
             'user': self,

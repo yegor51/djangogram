@@ -1,1 +1,1 @@
-web: python manage.py collectstatic --no-input; gunicorn djangogramm.wsgi --log-file=-
+web: python manage.py collectstatic --noinput; gunicorn djangogramm.wsgi --log-file=-

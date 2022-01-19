@@ -8,6 +8,12 @@ from .forms import CreatePublicationForm, CreateCommentForm
 @login_required
 @confirm_email_required
 def publication_view(request, publication_id):
+    """
+    Publication Page.
+
+    GET method: display publication, comments, and comment write form.
+    POST method: create comment to this publication.
+    """
     publication_object = get_object_or_404(Publication, id=publication_id)
     if request.method == 'POST':
         comment_form = CreateCommentForm(request.POST)
@@ -30,6 +36,12 @@ def publication_view(request, publication_id):
 @login_required
 @confirm_email_required
 def create_publication(request):
+    """
+    create publication form page.
+
+    GET method: display publication create form.
+    POST method: create publication by form.
+    """
     if request.method == 'POST':
         form = CreatePublicationForm(request.POST, request.FILES)
         if form.is_valid():
@@ -51,6 +63,9 @@ def create_publication(request):
 @login_required
 @confirm_email_required
 def set_publication_mark(request, publication_id):
+    """
+    POST method, set like or dislike to publication by publication id.
+    """
     if request.method == 'POST':
 
         publication = get_object_or_404(Publication, id=publication_id)
@@ -66,6 +81,9 @@ def set_publication_mark(request, publication_id):
 @login_required
 @confirm_email_required
 def delete_comment(request, comment_id):
+    """
+    POST method, delete comment by comment id.
+    """
     comment = get_object_or_404(Comment, id=comment_id)
     if request.method == 'POST':
         if comment.author == request.user:
@@ -77,6 +95,9 @@ def delete_comment(request, comment_id):
 @login_required
 @confirm_email_required
 def delete_publication(request, publication_id):
+    """
+    POST method, delete publication by publication id.
+    """
     publication = get_object_or_404(Publication, id=publication_id)
     if request.method == 'POST':
         if publication.author == request.user:

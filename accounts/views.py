@@ -9,6 +9,7 @@ from users.tokens import account_activation_token
 
 
 def login_view(request):
+    """user login page"""
     next = request.GET.get('next')
     form = UserLoginForm(request.POST or None)
     if form.is_valid():
@@ -26,6 +27,7 @@ def login_view(request):
 
 
 def register_view(request):
+    """user register page"""
     next = request.GET.get('next')
     form = UserRegisterForm(request.POST or None)
     if form.is_valid():
@@ -47,11 +49,22 @@ def register_view(request):
 
 
 def logout_view(request):
+    """logout user"""
     logout(request)
     return redirect('/')
 
 
 def confirm_email_view(request, uidb64, token):
+    """page for confirm email.
+
+    params:
+        uit64 - user id base64 encoded.
+        token - user secret token.
+
+    if token fits to user with id = decoded uid64, his account activates.
+    returns page with result of request.
+
+    """
     try:
         uid = urlsafe_base64_decode(uidb64)
         user = User.objects.get(id=uid)
@@ -67,6 +80,7 @@ def confirm_email_view(request, uidb64, token):
 
 @login_required
 def email_not_confirmed_view(request):
+    """page with the massage, that user`s email is not confirmed"""
     if not request.user.is_email_confirmed:
         return render(request, 'accounts/email_not_confirmed.html')
     else:
@@ -75,6 +89,7 @@ def email_not_confirmed_view(request):
 
 @login_required
 def send_activation_link_view(request):
+    """post method that sand activation link to user email"""
     if request.method == 'POST':
         current_site = get_current_site(request)
         request.user.send_confirmation_link(current_site)

@@ -3,6 +3,7 @@ from .models import Publication, Comment
 
 
 class CreatePublicationForm(forms.ModelForm):
+    """Publication create form. fields similar to Publication model fields"""
     class Meta():
             model = Publication
             fields = ('name', 'image', 'description')
@@ -15,6 +16,7 @@ class CreatePublicationForm(forms.ModelForm):
 
 
 class CreateCommentForm(forms.ModelForm):
+    """Comment create form. fields similar to Comment model fields"""
     class Meta():
             model = Comment
             fields = ('text',)

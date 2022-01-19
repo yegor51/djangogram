@@ -9,6 +9,11 @@ from publications.models import Publication, Comment
 @login_required
 @confirm_email_required
 def user_view(request, user_id):
+    """
+    user profile view page.
+
+    POST method: edit user profile.
+    """
     edit_profile_form_inital = {
         'first_name': request.user.first_name,
         'last_name': request.user.last_name,
@@ -45,6 +50,7 @@ def user_view(request, user_id):
 @login_required
 @confirm_email_required
 def all_users(request):
+    """all users list page."""
     return render(request, 'users/all_users.html', {
         'users': User.objects.all(),
     })
@@ -53,4 +59,5 @@ def all_users(request):
 @login_required
 @confirm_email_required
 def my_profile(request):
+    """redirect to login user profile page."""
     return redirect(f'/users/{request.user.id}/')
