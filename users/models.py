@@ -32,7 +32,7 @@ class User(AbstractUser):
     email = models.EmailField('email address', unique=True)
     bio = models.TextField(blank=True, default='')
     avatar = models.ImageField(upload_to='static/img/',
-                               default='static/default/blank_avatar.png')
+                               default='static/img/blank_avatar_vuwwgx.png')
     is_email_confirmed = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
