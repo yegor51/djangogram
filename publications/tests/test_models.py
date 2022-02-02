@@ -28,9 +28,9 @@ class TestModels(TestCase):
 
     def test_create_publication(self):
         Publication.create(self.user_1,
-                                       'publication_2',
-                                       'static/img/image_2.png',
-                                       'description_2')
+                           'publication_2',
+                           'static/img/image_2.png',
+                           'description_2')
 
         self.assertTrue(Publication.objects.filter(name='publication_2',
                                                    image='static/img/image_2.png',

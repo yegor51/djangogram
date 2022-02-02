@@ -173,3 +173,12 @@ class TestViews(TestCase):
                                                    image='static/img/image_1.png',
                                                    description='description_1',
                                                    ))
+
+    def test_comment_write(self):
+        self.client.login(username='test_email_1@gmail.com', password='test_password_1')
+        response = self.client.post(self.view_publication_1_url, {'text': 'sample text'})
+
+        self.assertTrue(Comment.objects.filter(author=self.user_1,
+                                               publication=self.publication_1,
+                                               text='sample text'
+                                               ))

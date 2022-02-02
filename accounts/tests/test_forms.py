@@ -1,17 +1,17 @@
 from django.test import TestCase
 from users.models import User
-from parameterized import parameterized
 from accounts.forms import UserLoginForm, UserRegisterForm
+from parameterized import parameterized
 
 
 class TestUserLoginForm(TestCase):
     def setUp(self):
         self.test_user = User.create('test_email@gmail.com', 'test_password', 'test_first_name', 'test_last_name')
         self.test_not_active_user = User.create('test_email_2@gmail.com',
-                                                     'test_password_2',
-                                                     'test_first_name_2',
-                                                     'test_last_name_2',
-                                                     is_active=False)
+                                                'test_password_2',
+                                                'test_first_name_2',
+                                                'test_last_name_2',
+                                                is_active=False)
 
     def test_correct_input(self):
         form = UserLoginForm(data={'email': 'test_email@gmail.com',
