@@ -23,9 +23,11 @@ class TestViews(TestCase):
         (
             (reverse('login'), 'accounts/login.html'),
             (reverse('register'), 'accounts/signup.html'),
+            (reverse('email_not_confirmed'), 'accounts/email_not_confirmed.html'),
         )
     )
     def test_views_normal(self, url, template):
+        self.client.login(username='test_email@gmail.com', password='test_password')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, template)
