@@ -1,0 +1,37 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-white fixed-top" style="width: 280px; height: 100vh;">
+
+    <a href="{% url 'my_profile' %}" class="w-100 overflow-hidden text-dark text-decoration-none">
+        <div class="mx-auto d-flex justify-content-center align-items-center">
+            <img src="{{ request.user.avatar.url }}" class="rounded-circle m-1" alt="img" width="65px" height="65px">
+            <span class="main-title">{{ request.user.first_name }}</span>
+        </div>
+
+    </a>
+
+    <hr class="m-1">
+
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class=" mt-2 nav-item mx-auto fs-5">
+            <a href="{% url 'view_user' request.user.id %}" class="nav-link p-0" aria-current="page">
+            My profile
+            </a>
+        </li>
+        <li class=" mt-2 nav-item mx-auto fs-5">
+            <a href="{% url 'view_all_users' %}" class="nav-link p-0" aria-current="page">
+            All users
+            </a>
+        </li>
+        <li class=" mt-2 nav-item mx-auto fs-5">
+            <a href="{% url 'create_publication' %}" class="nav-link p-0" aria-current="page">
+            New publication
+            </a>
+        </li>
+    </ul>
+
+    <hr>
+
+    <div class="dropdown d-flex justify-content-center">
+        <a  class="nav-link p-0"  href="{% url 'logout' %}">sign out</a>
+    </div>
+
+</div>

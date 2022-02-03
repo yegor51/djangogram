@@ -1,0 +1,29 @@
+{% extends 'accounts/forms_layout.html' %}
+
+
+{% block title %}
+confirm your email!
+{% endblock %}
+
+
+{% block content %}
+<div class="m-5 d-flex flex-column "  style="min-width: 300px">
+    <h1 class="display-5 mb-3 mx-auto">Please confirm your email</h1>
+    <p class="mx-auto">
+        We sent to your email confirmation link.
+    </p>
+    <p class="mx-auto">
+        Please click on the link to confirm your email address.
+    </p>
+    <form class="d-flex flex-column " action="{% url 'send_activation_link' %}" method="post">
+        {% csrf_token %}
+        <button class="p-2 mt-2 mx-auto btn btn-primary" type="submit">
+            send activation link again
+        </button>
+    </form>
+</div>
+{% endblock %}
+
+{% block post_content %}
+
+{% endblock %}

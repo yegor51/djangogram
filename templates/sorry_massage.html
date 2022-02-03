@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+User not found
+{% endblock %}
+
+
+{% block content %}
+<div class="flex-md-column d-flex my-5">
+    <h1 class="mx-auto display-1">Sorry</h1>
+    <p class="mx-auto" style="font-size:25px">{{ message }}</p>
+    <a class="mx-auto text-decoration-none" value="Previous Page" onClick="javascript:history.go(-1);">go back</a>
+</div>
+{% endblock %}

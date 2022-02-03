@@ -1,0 +1,128 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+{{ publication.name }}
+{% endblock %}
+
+
+{% block content %}
+<div class="bg-white border-bottom">
+    <div class="bg-white">
+        <a class="d-flex text-dark text-decoration-none" href="{% url 'view_user' publication.author.id %}">
+            <div class="d-flex flex-row m-2">
+                <img src="{{ publication.author.avatar.url }}" class="rounded-circle p-2" alt="img" width="70px" height="70px">
+                <h3 class="main-title align-text-bottom my-auto">{{ publication.author.first_name }} {{ publication.author.last_name }}</h3>
+            </div>
+        </a>
+    </div>
+    <div class="d-flex justify-content-center">
+        <img class="p-0 img-fluid" src="{{ publication.image.url }}" alt="img" >
+    </div>
+    <div class="p-0 my-1 mx-3">
+        <div class="d-flex justify-content-between">
+            <div>
+                <span class="m-0 main-title">{{ publication.name }}</span>
+                <p class="m-0">{{ publication.publication_date }}</p>
+            </div>
+            <div class="m-1 mt-auto align-items-end">
+                {% if request.user in publication.likes.all %} {% endif %}
+                <form class="d-flex flex-row " action="{% url 'set_publication_mark' publication.id %}" method="post">
+                    {% csrf_token %}
+    <!--                like-->
+                    <button class="text-decoration-none btn btn-link d-flex flex-row" type="submit" name="value" value="like">
+                        <svg style="margin-bottom:5px" width="25" height="25" viewBox="0 0 16 16">
+                            {% if request.user in publication.likes.all %}
+                            {% include 'icons/like_filled.html' %}
+                            {% else %}
+                            {% include 'icons/like.html' %}
+                            {% endif %}
+                        </svg>
+                        <p class="my-auto">{{ publication.likes.count }}</p>
+                    </button>
+
+    <!--                dislike-->
+                    <button class="text-decoration-none btn btn-link d-flex flex-row" type="submit" name="value" value="dislike">
+                        <svg width="25" height="25" viewBox="0 0 16 16">
+                            {% if request.user in publication.dislikes.all %}
+                            {% include 'icons/dislike_filled.html' %}
+                            {% else %}
+                            {% include 'icons/dislike.html' %}
+                            {% endif %}
+                        </svg>
+                        <p class="my-auto">{{ publication.dislikes.count }}</p>
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% if publication.author == request.user %}
+
+        <hr class="my-1">
+
+        <form action="{% url 'delete_publication' publication.id %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-outline-danger w-100" type="submit">delete publication</button>
+        </form>
+
+        {% endif %}
+
+
+        {% if publication.description %}
+        <hr class="my-1">
+        <p class="py-2 h-3" style="white-space: pre-line">{{ publication.description }}</p>
+        {% endif %}
+    </div>
+
+
+</div>
+
+<!--comments-->
+<div class="mx-3 pb-4">
+    <span class="mx-auto my-1 chapter-title">
+        comments:
+    </span>
+    <div class="bg-white p-2 px-3 my-1  border rounded">
+        <form method="post">
+            {% csrf_token %}
+            <div class="mt-2">
+                {{ comment_form.text.errors }}
+                <label class="m-0" for="{{ comment_form.text.id_for_label }}">write comment:</label>
+                {{ comment_form.text }}
+            </div>
+            <div class="mt-1">
+                <input class="btn btn-primary " type="submit" value="submit">
+            </div>
+        </form>
+    </div>
+    {% if comments %}
+    <div>
+        {% for comment in comments %}
+<!--        comment-->
+        <div class="bg-white p-2 pb-3 px-3 my-1 border rounded">
+
+                <div class="d-flex justify-content-between">
+<!--                    comment author-->
+                    <a class="text-dark text-decoration-none" href="{% url 'view_user' comment.author.id %}">
+                        <p class="m-0">
+                        {{ comment.author.first_name }} {{ comment.author.last_name }}:
+                        </p>
+                    </a>
+<!--                    comment date-->
+                    <p class="mt-auto mb-0 ml-auto"> {{ comment.publication_date.date }}</p>
+                </div>
+
+            <hr class="my-1">
+<!--            comment text-->
+            <p class="mb-0" style="white-space: pre-line;">{{ comment.text }}</p>
+                {% if comment.author == request.user %}
+                <form action="{% url 'delete_comment' comment.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="py-0 mt-2 text-danger text-decoration-none btn btn-link" type="submit">delete publication</button>
+                </form>
+                {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
