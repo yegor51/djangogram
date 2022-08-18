@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from djangogramm.utils import confirm_email_required
-from .models import User
+from .models import User, Follow
 from .forms import EditProfileForm
 from publications.models import Publication, Comment
 
@@ -54,3 +54,11 @@ def all_users(request):
 @confirm_email_required
 def my_profile(request):
     return redirect(f'/users/{request.user.id}/')
+
+
+@login_required
+@confirm_email_required
+def my_followings(request):
+    return render(request, 'users/view_followings.html', {
+        'followings': Follow.objects.filter(follower=request.user),
+    })

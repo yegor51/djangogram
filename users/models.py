@@ -66,3 +66,19 @@ class User(AbstractUser):
             mail_subject, message, to=[self.email]
         )
         email.send()
+
+
+class Follow(models.Model):
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
+
+    class SubClass:
+        unique = ('first_name', 'last_name')
+
+    @staticmethod
+    def create(follower, following, commit=True):
+        new_follow = Follow(follower=follower,
+                            following=following)
+        if commit:
+            new_follow.save()
+        return new_follow
