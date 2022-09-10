@@ -107,3 +107,26 @@ class User(AbstractUser):
             mail_subject, message, to=[self.email]
         )
         email.send()
+
+    def check_user_followed(self, following):
+        return Follow.objects.filter(follower=self, following=following).exists()
+
+    def followings(self):
+        return User.objects.filter(id__in=Follow.objects.filter(follower=self).values_list('following'))
+
+
+class Follow(models.Model):
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
+
+    class Meta:
+        unique_together = ["follower", "following"]
+
+    @staticmethod
+    def create(follower, following, commit=True):
+        new_follow = Follow(follower=follower, following=following)
+
+        if commit:
+            new_follow.save()
+
+        return new_follow

@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+News
+{% endblock %}
+
+
+{% block content %}
+
+<div class="d-flex flex-column">
+    <div class="bg-white border-bottom d-flex">
+        <h1 class="main-title p-2 my-0 mx-auto">News:</h1>
+    </div>
+    {% if followings|length > 0 %}
+    <div class="mx-3 border-bottom">
+        <h1 class="chapter-title">your followings:</h1>
+        <div class="d-flex flex-row">
+            <div class="w-100" style="overflow-x: hidden;">
+            <div class="d-flex flex-row">
+            {% for following in followings %}
+            <a class="d-flex text-decoration-none text-dark" href="{% url 'view_user' following.id %}">
+                <img src="{{ following.avatar.url }}" class="rounded-circle p-2 flex-item" alt="img" width="65px" height="65px">
+            </a>
+            {% endfor %}
+        </div>
+        </div>
+        <div><a class="nav-link text-center" href="{% url 'my_followings' %}">all followings</a></div>
+        </div>
+
+
+    </div>
+    <div class="mx-3">
+        <h1 class="chapter-title">latest publications:</h1>
+        {% for publication in publications %}
+        <div class="bg-white mb-3 border rounded">
+
+            <div class="">
+            <a class="d-flex text-dark text-decoration-none" href="{% url 'view_user' publication.author.id %}">
+                <div class="d-flex flex-row m-2">
+                    <img src="{{ publication.author.avatar.url }}" class="rounded-circle p-2" alt="img" width="50px" height="50px">
+                    <h3 class="sub-main-title align-text-bottom my-auto">{{ publication.author.first_name }} {{ publication.author.last_name }}</h3>
+                </div>
+            </a>
+            </div><a href="{% url 'view_publication' publication.id %}" class="text-reset text-decoration-none">
+            <div class="d-flex justify-content-center">
+            <img class="p-0 img-fluid" src="{{ publication.image.url }}" alt="img" >
+        </div>
+            <div class="p-0 my-1 mx-3">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <span class="m-0 sub-main-title">{{ publication.name }}</span>
+                </div>
+                <div class="m-1 mt-auto align-items-end">
+                    <form class="d-flex flex-row " action="{% url 'set_publication_mark' publication.id %}?next={{ request.path }}" method="post">
+                        {% csrf_token %}
+        <!--                like-->
+                        <button class="text-decoration-none btn btn-link d-flex flex-row" type="submit" name="value" value="like">
+                            <svg style="margin-bottom:5px" width="25" height="25" viewBox="0 0 16 16">
+                                {% if request.user in publication.likes.all %}
+                                {% include 'icons/like_filled.html' %}
+                                {% else %}
+                                {% include 'icons/like.html' %}
+                                {% endif %}
+                            </svg>
+                            <p class="my-auto">{{ publication.likes.count }}</p>
+                        </button>
+
+        <!--                dislike-->
+                        <button class="text-decoration-none btn btn-link d-flex flex-row" type="submit" name="value" value="dislike">
+                            <svg width="25" height="25" viewBox="0 0 16 16">
+                                {% if request.user in publication.dislikes.all %}
+                                {% include 'icons/dislike_filled.html' %}
+                                {% else %}
+                                {% include 'icons/dislike.html' %}
+                                {% endif %}
+                            </svg>
+                            <p class="my-auto">{{ publication.dislikes.count }}</p>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="flex-md-column d-flex my-5">
+    <h1 class="main-title mx-auto">You have no any followings.</h1>
+    <h2 class="sub-main-title mx-auto"><a href="{% url 'view_all_users' %}" class="nav-link">Find some users.</a></h2>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

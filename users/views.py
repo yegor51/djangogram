@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from djangogramm.utils import confirm_email_required
-from .models import User
+from .models import User, Follow
 from .forms import EditProfileForm
 from publications.models import Publication, Comment
 
@@ -44,6 +44,7 @@ def user_view(request, user_id):
         'publications': Publication.objects.filter(author=user_object),
         'comments_count': Comment.objects.filter(author=user_object).count(),
         'edit_profile_form': edit_profile_form,
+        'is_user_followed': request.user.check_user_followed(user_object)
     })
 
 
@@ -53,6 +54,7 @@ def all_users(request):
     """all users list page."""
     return render(request, 'users/all_users.html', {
         'users': User.objects.all(),
+        'followings': request.user.followings(),
     })
 
 
@@ -61,3 +63,42 @@ def all_users(request):
 def my_profile(request):
     """redirect to login user profile page."""
     return redirect(f'/users/{request.user.id}/')
+
+
+@login_required
+@confirm_email_required
+def my_followings(request):
+    """list of followings of user page."""
+    return render(request, 'users/my_followings.html', {
+        'followings': request.user.followings(),
+    })
+
+
+@login_required
+@confirm_email_required
+def create_follow(request, following_id):
+    """
+    """
+    if request.method == 'POST':
+        next = request.GET.get('next')
+        following = get_object_or_404(User, id=following_id)
+        Follow.create(request.user, following)
+
+        if next:
+            return redirect(next)
+
+    return redirect('view_user', following_id)
+
+
+def delete_follow(request, following_id):
+    if request.method == 'POST':
+        next = request.GET.get('next')
+        following = get_object_or_404(User, id=following_id)
+        follow = get_object_or_404(Follow, follower=request.user, following=following)
+        if follow:
+            follow.delete()
+
+        if next:
+            return redirect(next)
+
+    return redirect('view_user', following_id)

@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+My followings
+{% endblock %}
+
+
+{% block content %}
+<div class="bg-white border-bottom d-flex">
+    <h1 class="main-title p-2 my-0 mx-auto">Followings list:</h1>
+</div>
+
+{% if followings|length > 0 %}
+<div class="d-flex">
+    <div class="d-flex flex-column mx-auto w-75">
+        {% for user in followings %}
+        {% include 'users/user_list_item.html' %}
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="flex-md-column d-flex my-5">
+    <h1 class="main-title mx-auto">You have no any followings.</h1>
+    <h2 class="sub-main-title mx-auto"><a href="{% url 'view_all_users' %}" class="nav-link">Find some users.</a></h2>
+</div>
+{% endif %}
+
+{% endblock %}

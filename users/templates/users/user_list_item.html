@@ -1,0 +1,29 @@
+<a class="text-decoration-none text-dark" href="{% url 'view_user' user.id %}">
+     <div class="d-flex justify-content-between border-bottom">
+
+         <div class="d-flex">
+             <img src="{{ user.avatar.url }}" class="rounded-circle p-2 flex-item" alt="img" width="65px" height="65px">
+             <h1 class="p-1 sub-main-title my-auto">{{ user.first_name }} {{ user.last_name }}</h1>
+         </div>
+
+
+         {% if user in followings %}
+
+         <form class="ml-auto my-auto" action="{% url 'delete_follow' user.id %}?next={{ request.path }}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-outline-secondary mx-1" type="submit" name="value" value="like">
+                Unfollow
+            </button>
+        </form>
+
+        {% else %}
+
+        <form class="ml-auto my-auto" action="{% url 'create_follow' user.id %}?next={{ request.path }}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-outline-primary mx-1" type="submit" name="value" value="like">
+                Follow
+            </button>
+        </form>
+         {% endif %}
+     </div>
+</a>

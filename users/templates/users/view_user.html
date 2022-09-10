@@ -20,18 +20,40 @@
             </div>
         </div>
 
-        {% if user == request.user %}
         <hr class="my-1">
 
         <div class="d-flex justify-content-around">
+
+            {% if user == request.user %}
             <a class="btn btn-outline-secondary mx-1 w-100" data-toggle="collapse" href=".switch-edit-profile" role="button" aria-expanded="false" aria-controls="info-panel edit-info-panel">
             edit profile
             </a>
-
             <a class="btn btn-outline-secondary mx-1 w-100" href="{% url 'create_publication' %}">create publication</a>
-        </div>
 
-        {% endif %}
+            {% else %}
+
+                {% if is_user_followed %}
+
+                <form class="w-100" action="{% url 'delete_follow' user.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-secondary mx-1 w-100" type="submit" name="value" value="like">
+                        Unfollow
+                    </button>
+                </form>
+
+                {% else %}
+
+                <form class="w-100" action="{% url 'create_follow' user.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-primary mx-1 w-100" type="submit" name="value" value="like">
+                        Follow
+                    </button>
+                </form>
+
+                {% endif %}
+
+            {% endif %}
+        </div>
 
         <hr class="my-1">
 

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from djangogramm.utils import confirm_email_required
 from .models import Publication, Comment
+from users.models import User, Follow
 from .forms import CreatePublicationForm, CreateCommentForm
 
 
@@ -67,13 +68,16 @@ def set_publication_mark(request, publication_id):
     POST method, set like or dislike to publication by publication id.
     """
     if request.method == 'POST':
-
+        next = request.GET.get('next')
         publication = get_object_or_404(Publication, id=publication_id)
         value = request.POST.get('value')
         if value == 'like':
             publication.set_like(request.user)
         elif value == 'dislike':
             publication.set_dislike(request.user)
+
+        if next:
+            return redirect(next)
 
     return redirect('view_publication', publication_id)
 
@@ -104,3 +108,16 @@ def delete_publication(request, publication_id):
             publication.delete()
 
     return redirect('view_user', publication.author.id)
+
+
+@login_required
+@confirm_email_required
+def news_feed(request):
+    """last publications of users' followings page."""
+    followings_list = followings_list = User.objects.filter(id__in=
+                                                            Follow.objects.filter(follower=
+                                                                                  request.user).values_list('following'))
+    return render(request, 'users/news_feed.html', {
+        'publications': Publication.objects.filter(author__in=followings_list).order_by('-publication_date'),
+        'followings': followings_list,
+    })

@@ -11,21 +11,31 @@
     <hr class="m-1">
 
     <ul class="nav nav-pills flex-column mb-auto">
+
         <li class=" mt-2 nav-item mx-auto fs-5">
             <a href="{% url 'view_user' request.user.id %}" class="nav-link p-0" aria-current="page">
             My profile
             </a>
         </li>
+
         <li class=" mt-2 nav-item mx-auto fs-5">
-            <a href="{% url 'view_all_users' %}" class="nav-link p-0" aria-current="page">
-            All users
+            <a href="{% url 'news_feed'  %}" class="nav-link p-0" aria-current="page">
+            News
             </a>
         </li>
+
         <li class=" mt-2 nav-item mx-auto fs-5">
             <a href="{% url 'create_publication' %}" class="nav-link p-0" aria-current="page">
             New publication
             </a>
         </li>
+
+        <li class=" mt-2 nav-item mx-auto fs-5">
+            <a href="{% url 'view_all_users' %}" class="nav-link p-0" aria-current="page">
+            All users
+            </a>
+        </li>
+
     </ul>
 
     <hr>
